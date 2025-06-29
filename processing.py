@@ -1,3 +1,4 @@
+# filename: processing.py
 import pandas as pd
 import numpy as np
 
@@ -29,10 +30,10 @@ def process_and_score_stocks(
       processed_data_df: A pandas DataFrame with processed data for visualization.
       source_data_df: A pandas DataFrame containing the net_gravitational_force,
                       max_potential_force, and gravitational_impact for the source ticker,
-                      along with the source ticker's market cap influence and source_planet_radius.
+                      along with the source ticker's market cap influence and source_moon_radius.
     """
     # --- Data Unpivoting and Initial Setup ---
-    # Start with the 6-month correlation data as the base
+    # planett with the 6-month correlation data as the base
     correlation_df = six_month_correlations.rename_axis('source', axis=0)
     grouped_correlation_data = correlation_df.stack().reset_index()
     grouped_correlation_data.columns = ['source', 'target', 'six_month_spearman_correlation']
@@ -168,7 +169,7 @@ def process_and_score_stocks(
     else:
         final_filtered_df['Orbital Radius'] = 0.5 # Neutral value if all forces are the same
 
-    # -----Calculate Planet Radius------
+    # -----Calculate moon Radius------
     # Combine all market caps to find the true min and max for normalization
     all_caps = pd.concat([
         final_filtered_df['Market Cap'],
@@ -188,16 +189,16 @@ def process_and_score_stocks(
     if log_cap_range > 0:
         # We are calculating log on just the dataframe column now
         log_df_caps = np.log(final_filtered_df['Market Cap'].clip(lower=epsilon))
-        final_filtered_df['Planet Radius'] = (log_df_caps - min_log_cap) / log_cap_range
+        final_filtered_df['moon Radius'] = (log_df_caps - min_log_cap) / log_cap_range
     else:
         # If all values are the same, assign a default radius
-        final_filtered_df['Planet Radius'] = 0.5
+        final_filtered_df['moon Radius'] = 0.5
 
-    # Calculate source_planet_radius using the same min/max log caps from the targets and source.
+    # Calculate source_moon_radius using the same min/max log caps from the targets and source.
     if log_cap_range > 0:
-        source_planet_radius = (source_log_cap - min_log_cap) / log_cap_range
+        source_moon_radius = (source_log_cap - min_log_cap) / log_cap_range
     else:
-        source_planet_radius = 0.5 # Neutral value if all caps are the same
+        source_moon_radius = 0.5 # Neutral value if all caps are the same
 
     # --- Final Cleanup and Column Selection ---
     # "gravitational_percent" shows the relative % contribution of each stock.
@@ -206,7 +207,7 @@ def process_and_score_stocks(
     final_columns = [
         'source', 'target', 'Daily Change', 'six_month_spearman_correlation',
         'three_month_spearman_correlation', 'unified_correlation',
-        'Orbital Radius', 'Market Cap', 'Planet Radius', 'market_cap_influence',
+        'Orbital Radius', 'Market Cap', 'moon Radius', 'market_cap_influence',
         'gravitational_force', 'signed_gravitational_force', 'gravitational_percent'
     ]
 
@@ -223,7 +224,7 @@ def process_and_score_stocks(
         'max_potential_force': max_potential_force,
         'gravitational_impact': gravitational_impact,
         'source_market_cap_influence': source_market_cap_influence, # Add the source influence
-        'source_planet_radius': source_planet_radius # Add the source planet radius
+        'source_moon_radius': source_moon_radius # Add the source moon radius
     }])
 
 
