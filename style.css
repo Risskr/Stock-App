@@ -1,0 +1,545 @@
+/* --- CSS Variables (Theme) --- */
+:root {
+    --background-color: #0B041A;
+    --text-color: #EAEAEA;
+    --primary-color: #FFFFFF;
+    --container-bg-color: rgba(30, 15, 60, 0.3);
+    --container-border-color: rgba(255, 255, 255, 0.2);
+    --hover-border-color: rgba(191, 148, 228, 0.7);
+    --hover-shadow-color: rgba(191, 148, 228, 0.3);
+    --secondary-text-color: #9ca3af;
+    --red-spectrum-light: #FF0000;
+    --red-spectrum-dark: #8E0000;
+    --green-spectrum-light: #A1FF61;
+    --green-spectrum-dark: #1B9D49;
+    --blue-spectrum-light: #9751CB;
+    --blue-spectrum-dark: #4C216D;
+    --planet-trend-decrease: #FF0000;
+    --planet-trend-stable: #F7D117;
+    --planet-trend-increase: #159BFF;
+}
+
+/* --- General Body & Font --- */
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Planetary Background --- */
+.planetary-background {
+    background-image: radial-gradient(circle, white 0.5px, transparent 1.5px), radial-gradient(circle, white 1px, transparent 2px), radial-gradient(circle, white 0.5px, transparent 1.5px);
+    background-size: 350px 350px, 250px 250px, 150px 150px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    min-height: 100vh;
+    padding: 10px 0; /* Reduced side padding */
+}
+
+/* --- Homepage Specific --- */
+.homepage-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 2vh 0rem 2rem 0rem; /* Drastically reduced top padding */
+    width: 100%;
+    box-sizing: border-box;
+}
+.homepage-logo {
+    height: 80px; /* Reduced logo size */
+    margin-bottom: 0.5rem; /* Reduced margin */
+}
+.homepage-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem; /* Reduced title size */
+    font-weight: 700;
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.homepage-subtitle {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem;
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+.top-trends-container-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.top-trends-container {
+    background-color: var(--container-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    border: 1px solid var(--container-border-color);
+    box-sizing: border-box;
+}
+.trends-header {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-color);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+.prediction-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--container-border-color);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.prediction-item:last-child {
+    border-bottom: none;
+}
+.homepage-disclaimer-link {
+    color: var(--secondary-text-color);
+    text-align: center;
+    text-decoration: underline;
+}
+.homepage-disclaimer-wrapper {
+    margin-top: 4rem;
+}
+
+
+/* --- Dummy Search Bar on Main Page --- */
+.dummy-search-bar {
+    width: 90%;
+    height: 50px;
+    background-color: var(--container-bg-color);
+    border: 1px solid var(--container-border-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    font-size: 1rem;
+    gap: 15px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+.dummy-search-bar:hover {
+    border-color: var(--hover-border-color);
+    box-shadow: 0 0 15px var(--hover-shadow-color);
+    color: var(--text-color); /* Controls color for both text and icon on hover */
+}
+.search-icon {
+    height: 20px;
+    width: 20px;
+    color: inherit; /* Explicitly inherit color from parent */
+    transition: color 0.3s ease;
+}
+
+/* --- Search Overlay --- */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(11, 4, 26, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2vh;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; 
+}
+.search-overlay.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.search-overlay-content {
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* --- Close Button for Overlay --- */
+.close-search-btn {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.3s ease;
+}
+.close-search-btn:hover {
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* --- Real Search Input inside the Overlay --- */
+.real-search-input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--container-border-color);
+    border-radius: 0;
+    height: 60px;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-family: 'Space Grotesk', sans-serif;
+    padding: 0 5px;
+    position: relative;
+    outline: none;
+    transition: border-color 0.4s ease;
+}
+.real-search-input:focus {
+    border-color: var(--hover-border-color);
+}
+.real-search-input::placeholder,
+.real-search-input:-ms-input-placeholder,
+.real-search-input::-ms-input-placeholder {
+   color: var(--secondary-text-color);
+   opacity: 1;
+}
+
+/* --- Scrollable Stock List --- */
+.stock-list-container {
+    margin-top: 15px;
+    max-height: 50vh;
+    overflow-y: auto;
+    text-align: left;
+    animation: slide-up 0.4s 0.1s ease forwards;
+    opacity: 0;
+    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+}
+@keyframes slide-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.stock-list-item {
+    padding: 15px 20px;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+.stock-list-item:hover {
+    background-color: rgba(191, 148, 228, 0.2);
+}
+.stock-list-item-no-match {
+    padding: 15px 20px;
+    color: var(--secondary-text-color);
+    font-size: 1.1rem;
+    cursor: default;
+}
+.stock-list-container::-webkit-scrollbar { width: 8px; }
+.stock-list-container::-webkit-scrollbar-track { background: rgba(30, 15, 60, 0.5); border-radius: 10px; }
+.stock-list-container::-webkit-scrollbar-thumb { background: var(--hover-border-color); border-radius: 10px; }
+.stock-list-container::-webkit-scrollbar-thumb:hover { background: #a97fd4; }
+
+
+/* --- Planetary System Page Layout --- */
+.header-logo-link {
+    text-decoration: none;
+    color: inherit;
+}
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+.header-logo-image {
+    height: 50px;
+    margin-right: 20px;
+}
+.header-title {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-color);
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin: 0;
+    line-height: 1.1;
+}
+.dropdown-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 15px auto 10px;
+    background-color: var(--container-bg-color);
+    border: 1px solid var(--container-border-color);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    position: relative;
+    z-index: 20;
+}
+.dropdown-label {
+    font-size: small;
+    color: white;
+    text-align: center;
+    margin-bottom: 5px;
+    margin: 0;
+}
+.graph-container {
+    position: relative;
+    height: 42vh;
+    width: 100%; /* Changed from 98% */
+    margin: auto;
+}
+.network-graph {
+    height: 100%;
+    /* Removed border-radius and box-shadow */
+}
+.floating-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    z-index: 10;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.zoom-button {
+    background: rgba(40, 40, 40, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 18px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+    box-sizing: border-box;
+}
+.prediction-summary-text {
+    text-align: center;
+    padding: 0 0 10px 0; /* Removed top padding */
+    margin-top: 15px; /* Added margin for spacing */
+    font-size: 16px;
+    color: var(--text-color);
+}
+.app-footer {
+    text-align: center;
+    padding: 40px 0 20px 0;
+}
+.footer-link {
+    color: var(--text-color);
+    text-decoration: underline;
+    opacity: 0.7;
+}
+
+/* --- Planetary System Info Panels --- */
+.info-panels-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 5px; /* Removed top padding */
+}
+.info-panel {
+    background-color: var(--container-bg-color);
+    border: 1px solid var(--container-border-color);
+    padding: 5px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    box-sizing: border-box;
+}
+.panel-header {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-color);
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+.panel-prediction-summary {
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 15px;
+    font-size: 16px;
+}
+.definition-row {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.definition-row-container {
+    margin-top: 15px;
+}
+.definition-label {
+    font-weight: bold;
+    width: 150px;
+    flex-shrink: 0;
+}
+.definition-text {
+    flex-grow: 1;
+}
+.panel-divider {
+    border: none;
+    border-top: 1px solid var(--container-border-color);
+    margin: 20px auto;
+    width: 90%;
+}
+.color-legend-container {
+    width: 90%;
+    margin: 15px auto 20px auto;
+}
+.color-legend-bar {
+    height: 15px;
+    border-radius: 5px;
+}
+.planet-color-legend {
+    background: linear-gradient(to right, var(--planet-trend-decrease), var(--planet-trend-stable), var(--planet-trend-increase));
+}
+.moon-color-legend {
+    display: flex;
+    gap: 10px;
+}
+.moon-color-bar {
+    flex: 1;
+}
+.moon-color-bar-label {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+}
+.color-legend-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    color: white;
+    font-size: 12px;
+}
+.table-wrapper {
+    overflow-x: auto;
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    background-color: rgba(30, 15, 60, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+}
+.table-wrapper.scrollable-y {
+    max-height: 300px;
+    overflow-y: auto;
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%), linear-gradient(to bottom, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, black 90%, transparent 100%), linear-gradient(to bottom, black 90%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+}
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.info-table th {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--container-border-color);
+}
+.info-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--container-border-color);
+}
+.info-table tr {
+    cursor: pointer;
+}
+.ticker-cell-content {
+    display: flex;
+    align-items: center;
+}
+.ticker-cell-image {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+.live-data-link-container {
+    text-align: center;
+    padding-bottom: 15px;
+}
+.live-data-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px; /* Adjusted padding */
+    background-color: white;
+    color: #374151;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 4px 14px 0 rgba(0, 118, 255, 0.39);
+}
+.live-data-link-icon {
+    height: 16px;
+    width: 16px;
+    margin-right: 8px;
+}
+
+/* --- Terminology Accordion --- */
+.terminology-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    background-color: rgba(30, 15, 60, 0.5); /* Same as table wrapper */
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 0;
+    transition: border-radius 0.1s ease-in-out;
+}
+.terminology-header:hover {
+    /* No color change on hover */
+}
+.terminology-header.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.terminology-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+.terminology-chevron {
+    font-size: 16px;
+    transition: transform 0.4s ease;
+}
+.terminology-header.open .terminology-chevron {
+    transform: rotate(90deg);
+}
+.terminology-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    background-color: rgba(30, 15, 60, 0.5);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.terminology-content.open {
+    max-height: 1000px; /* Increased max height to prevent cutoff */
+    transition: max-height 0.5s ease-in, padding 0.5s ease-in;
+    padding: 15px; /* Add space when open */
+}
